@@ -4,17 +4,21 @@
   "description": "geo-location game",
   "main": "config.js",
   "dependencies": {
+    "@google/maps": "^0.2.1",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
     "mongoose-random": "^0.1.1",
+    "ngmap": "^1.17.7",
     "nodemon": "^1.11.0",
     "request": "^2.75.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "installall": "npm install && cd client && bower install"
   },
   "repository": {
     "type": "git",
