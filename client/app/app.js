@@ -1,7 +1,11 @@
-angular.module('App', ['ngRoute'])
+angular.module('App', ['ngRoute', 'ngMap', 'Game'])
 .config(function($routeProvider){
 	$routeProvider.when('/', {
 		templateUrl: '/app/info.html'
+	})
+	.when('/game', {
+		templateUrl: '/app/game.html',
+		controller: 'gameController'
 	})
 })
 .controller('mapController', ['$scope', 'Map', '$http', function ($scope, Map){
@@ -17,7 +21,7 @@ $scope.StartGame = function(){
 			var testUrl;
 			$http.get('/newGame').success(function(result){ //enter express URL
 				console.log(result)
-				return result; 
+				return JSON.parse(result); 
 			})
 		}
 	}
