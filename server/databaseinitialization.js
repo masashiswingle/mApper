@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
+
 //in order for the following connection to work, I had to set the bind_ip variable inside the etc/mongo.config file (on the remote server) to 0.0.0.0.  This allows the database to accept connections from networks outside of the local machine.
 mongoose.connect('mongodb://104.236.129.131/mapper', function(err, db) {
   if (err) {
@@ -44,16 +45,15 @@ var entrySchema = new mongoose.Schema({
   }
 });
 
-
-//ASSIGNE THE MODEL CONSTRUCTOR TO A VARIABLE
+//ASSIGN THE MODEL CONSTRUCTOR TO A VARIABLE
 var entry = mongoose.model('entrySchema', entrySchema);
-
+module.exports = entry;
 
 
 //USE FS READFILE TO READ THE CSV FILE INTO MEMORY
-//NOTE ***IF CSV FILE IS LARGE, THE FOLLOWING MAY NEED TO BE REFACTORED
-//TO INCLUDE STREAMING/PIPING SO AS TO NOT TAKE UP SO MUCH VOLOTILE MEMORY 
-fs.readFile('./LocationPoints.csv', 'utf-8', (err, data) => {
+// //NOTE ***IF CSV FILE IS LARGE, THE FOLLOWING MAY NEED TO BE REFACTORED
+// //TO INCLUDE STREAMING/PIPING SO AS TO NOT TAKE UP SO MUCH VOLITILE MEMORY
+fs.readFile('./locationPoints.csv', 'utf-8', (err, data) => {
   if (err) throw err;
   //SPLIT EACH ENTRY INTO A SEPARATE STRING
   var array = data.split('\r\n');
@@ -61,11 +61,12 @@ fs.readFile('./LocationPoints.csv', 'utf-8', (err, data) => {
   array.shift();
   //INITIALIZE THE FINAL ARRAY
   var finalArray = [];
+
   //TRANFORM EACH ENTRY INTO AN OBJECT THAT CAN BE ADDED TO MONGODB
   array.forEach(function(entry) {
     //SPLIT EACH ENTRY INTO INDIVIDUAL ENTRY PROPERTIES
     var entryArray = entry.split(',');
-    //CREATE AN OBJECT FOR EACH ENTRY - CHANGING STRINGS TO NUMBER FOR NUMBER 
+    //CREATE AN OBJECT FOR EACH ENTRY - CHANGING STRINGS TO NUMBER FOR NUMBER
     //PROPERTIES
     var entryObject = {
       id: Number(entryArray[0]),
@@ -83,18 +84,3 @@ fs.readFile('./LocationPoints.csv', 'utf-8', (err, data) => {
     console.log('success');
   })
 });
-
-
-
-
-
-
-
-
-
-
-// city.create(chicago, function (err, chicago) {
-//   if (err) return handleError(err);
-//   console.log(chicago);
-// });
-
