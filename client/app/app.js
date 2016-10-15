@@ -9,20 +9,23 @@ angular.module('App', ['ngRoute', 'ngMap', 'Game'])
 	})
 })
 .controller('mapController', ['$scope', 'Map', '$http', function ($scope, Map){
-$scope.testLat = 37.773972;
-$scope.testLng = -122.431297;
+$scope.lat = 40;
+$scope.lng = 40;
 $scope.StartGame = function(){
-	Map.getMaps();
+	Map.getMaps(function(result){
+		console.log('start game function', result);
+		$scope.lat = result[0];
+		$scope.lng = result[1]; 
+	})
 }
 }])
 .factory('Map', function ($http){
-	return {
-		getMaps: function (){
+		var getMaps = function (callback){
 			var testUrl;
 			$http.get('/newGame').success(function(result){ //enter express URL
-				console.log(result)
-				return JSON.parse(result); 
+				console.log('map factory', result)
+				callback(result);
 			})
-		}
-	}
+		};
+		return {getMaps: getMaps};
 });
