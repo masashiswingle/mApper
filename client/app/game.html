@@ -1,11 +1,11 @@
-<div ng-controller = "gameController">
-  <ng-map zoom="1000" center="40.740, -74.18" >
-    <marker position="40.740, -74.18"></marker>
+<div ng-controller = "mapController">
+  <ng-map zoom="1000" center="{{lat}}, {{lng}}" >
+    <marker position="{{lat}}, {{lng}}"></marker>
     <street-view-panorama
       click-to-go="false"
       disable-default-u-i="false"
       disable-double-click-zoom="true"
-      position="40.740, -74.18"
+      position="{{lat}}, {{lng}}"
       pov="{heading: heading, pitch: pitch}"
       scrollwheel="false"
       visible="true"
