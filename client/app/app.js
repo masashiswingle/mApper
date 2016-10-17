@@ -9,8 +9,7 @@ angular.module('App', ['ngRoute', 'ngMap', 'Game'])
 	})
 })
 .controller('mapController', ['$scope', 'Map', '$http', function ($scope, Map){
-$scope.lat = 40;
-$scope.lng = 40;
+
 $scope.StartGame = function(){
 	Map.getMaps(function(result){
 		console.log('start game function', result);

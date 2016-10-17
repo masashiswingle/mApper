@@ -18,6 +18,18 @@ app.get('/newGame', function(req, res){
   });
 });
 
+app.get('/api/getAll', function(req, res) {
+  query.getAllQuery(req.query.city, function(results) {
+    res.send(results);
+  })
+})
+
+app.post('/api/update', function(req, res) {
+  query.updateEntry(req.body.lookup, req.body.update, function(results) {
+    res.send(results);
+  })
+})
+
 app.listen(PORT, function(){
   console.log('listening on PORT ' + PORT);
 })
