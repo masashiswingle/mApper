@@ -1,15 +1,9 @@
-<div ng-controller = "mapController">
-  <ng-map zoom="1000" center="{{lat}}, {{lng}}" >
-    <marker position="{{lat}}, {{lng}}"></marker>
-    <street-view-panorama
-      click-to-go="false"
-      disable-default-u-i="false"
-      disable-double-click-zoom="true"
-      position="{{lat}}, {{lng}}"
-      pov="{heading: heading, pitch: pitch}"
-      scrollwheel="false"
-      visible="true"
-      street-view-control="false">
-    </street-view-panorama>
-  </ng-map>
+<div ng-init="StartGame()">
+  <div ng-controller = "mapController">
+      <map id="sv" street-view="StreetViewPanorama(document.querySelector('map#sv'), {position:new google.maps.LatLng({{lat}},{{lng}}), addressControl: false, fullscreenControl: false, panControl: false, zoomControl: false, imageDateControl: false})"/>  
+      </map>
+  
+    </map>
+  </div>
 </div>
+
